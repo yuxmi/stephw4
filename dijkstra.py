@@ -28,7 +28,11 @@ def main():
             target = k
 
     path = dijkstra(start, target, links)
-    return path
+    final_path = []
+    for node in path:
+        final_path.append(pages[node])
+    return final_path
+
 
 def dijkstra(start, target, links):
 
