@@ -22,10 +22,10 @@ def main():
             print('Google', k)
             start = k
 
-    for key, val in pages.items():
-        if val == '渋谷':
-            print('渋谷', key)
-            target = key
+    for k, v in pages.items():
+        if v == '渋谷':
+            print('渋谷', k)
+            target = k
 
     path = dijkstra(start, target, links)
     return path
