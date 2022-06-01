@@ -20,4 +20,6 @@ main()が大きいファイル(links.txt, pages.txt)で
 
 small()が小さいファイル(links_small.txt, pages_small.txt)を走るようになってます。
 
+走らせたくない方をコメントしてください！
+
 レビューよろしくお願いします＾＾
