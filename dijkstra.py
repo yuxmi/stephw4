@@ -1,3 +1,6 @@
+print(main())
+print(small())
+
 def main():
     pages = {}
     links = {}
@@ -19,13 +22,11 @@ def main():
 
     for k, v in pages.items():
         if v == 'Google':
-            print('Google', k)
             # Determines start node number
             start = k
 
     for k, v in pages.items():
         if v == '渋谷':
-            print('渋谷', k)
             # Determines target node number
             target = k
 
@@ -82,6 +83,40 @@ def dijkstra(start, target, links):
             if newDist < dist[neighbor]:
                 dist[neighbor] = newDist
                 parents[neighbor] = node
+                
 
-if __name__ == '__main__':
-    main()
+def small():
+    pages = {}
+    links = {}
+
+    with open('data/pages_small.txt') as f:
+        for data in f.read().splitlines():
+            page = data.split('\t')
+        # page[0]: id, page[1]: title
+            pages[page[0]] = page[1]
+
+    with open('data/links_small.txt') as f:
+        for data in f.read().splitlines():
+            link = data.split('\t')
+        # link[0]: id (from), links[1]: id (to)
+            if link[0] in links:
+                links[link[0]].add(link[1])
+            else:
+                links[link[0]] = {link[1]}
+
+    for k, v in pages.items():
+        if v == 'Google':
+            # Determines start node number
+            start = k
+
+    for k, v in pages.items():
+        if v == '渋谷':
+            # Determines target node number
+            target = k
+
+    path = dijkstra(start, target, links)
+    final_path = []
+    # Converts page numbers into names
+    for node in path:
+        final_path.append(pages[node])
+    return final_path
