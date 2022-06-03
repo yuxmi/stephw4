@@ -30,8 +30,9 @@ def main():
             # Determines target node
             end = k
 
-    visited = []
-    path = DFS(start, end, visited, links, pages)
+    path = []
+    visited = set()
+    path = DFS(start, end, path, links, pages, visited)
     final_path = []
     # Converts nodes into page names
     for node in path:
@@ -39,21 +40,24 @@ def main():
     return final_path
 
 
-def DFS(start, target, visited, links, pages):
-    visited.append(start)
+def DFS(start, target, path, links, pages, visited):
+    path.append(start)
+    visited.add(start)
     # Iterates through every link from the current node until target found
     for node in links[start]:
 
         # Base case
         if node == target:
-            visited.append(target)
-            return visited
+            path.append(target)
+            return path
     
         if isLegal(node, links, visited):
             # Recursive backtracking
-            potential = DFS(node, target, visited, links, pages)
+            potential = DFS(node, target, path, links, pages, visited)
             if potential != None:
                 return potential
+            visited.add(start)
+            path.pop(-1)
 
 
 # Checks if a path is possible from node without recursion (reduces runtime)
@@ -93,8 +97,9 @@ def small():
             # Determines target node
             end = k
 
-    visited = []
-    path = DFS(start, end, visited, links, pages)
+    path = []
+    visited = set()
+    path = DFS(start, end, path, links, pages, visited)
     final_path = []
     # Converts nodes into page names
     for node in path:
