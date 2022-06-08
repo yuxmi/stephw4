@@ -31,7 +31,6 @@ def main():
             end = k
 
     path = []
-    visited = set()
     path = DFS(start, end, path, links, pages, visited)
     final_path = []
     # Converts nodes into page names
@@ -40,7 +39,9 @@ def main():
     return final_path
 
 
-def DFS(start, target, path, links, pages, visited):
+visited = set()
+
+def DFS(start, target, path, links, pages):
     path.append(start)
     visited.add(start)
     # Iterates through every link from the current node until target found
@@ -53,7 +54,7 @@ def DFS(start, target, path, links, pages, visited):
     
         if isLegal(node, links, visited):
             # Recursive backtracking
-            potential = DFS(node, target, path, links, pages, visited)
+            potential = DFS(node, target, path, links, pages)
             if potential != None:
                 return potential
             visited.add(start)
